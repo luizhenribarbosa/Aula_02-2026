@@ -1,0 +1,150 @@
+/* CSS ESPECÍFICO PARA PÁGINA DE PRODUTOS */
+
+.produtos-section {
+    animation: fadeInUp 0.8s ease;
+}
+
+.produtos-section h2 {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: var(--accent-color);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.produtos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.produto-card {
+    background-color: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+.produto-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-color), transparent);
+    transition: var(--transition);
+}
+
+.produto-card:hover::before {
+    left: 100%;
+}
+
+.produto-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent-color);
+}
+
+.produto-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+    color: var(--text-primary);
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.categoria-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-dark));
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    width: fit-content;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.produto-preco {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.produto-descricao {
+    color: var(--text-secondary);
+    margin-bottom: 0;
+    flex: 1;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* MENSAGENS */
+.loading-message,
+.empty-message {
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 2rem;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.empty-message a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.empty-message a:hover {
+    text-decoration: underline;
+    color: var(--accent-dark);
+}
+
+/* RESPONSIVO */
+@media (max-width: 1024px) {
+    .produtos-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .produtos-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .produtos-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .produto-card {
+        padding: 1.2rem;
+    }
+
+    .categoria-badge {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.75rem;
+    }
+
+    .produto-preco {
+        font-size: 1.5rem;
+    }
+}

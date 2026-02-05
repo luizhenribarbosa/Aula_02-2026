@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Produto - TechStore</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="cadastro.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>💻 TechStore</h1>
+            </div>
+            <nav class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="./cadastro.html">Cadastrar Produto</a>
+                <a href="../produtos/produtos.html">Produtos</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle">🌙</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="form-container">
+            <div class="form-wrapper">
+                <h2>Cadastrar Novo Produto</h2>
+                <form id="formProduto">
+                    <div class="form-group">
+                        <label for="nome">Nome do Produto *</label>
+                        <input 
+                            type="text" 
+                            id="nome" 
+                            name="nome" 
+                            placeholder="Ex: Smartphone XYZ" 
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Preço (R$) *</label>
+                        <input 
+                            type="number" 
+                            id="price" 
+                            name="price" 
+                            placeholder="Ex: 1299.99" 
+                            step="0.01" 
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoria">Categoria *</label>
+                        <select id="categoria" name="categoria" required>
+                            <option value="">Selecione uma categoria</option>
+                            <option value="Smartphones">Smartphones</option>
+                            <option value="Notebooks">Notebooks</option>
+                            <option value="Tablets">Tablets</option>
+                            <option value="Acessórios">Acessórios</option>
+                            <option value="Periféricos">Periféricos</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descricao">Descrição *</label>
+                        <textarea 
+                            id="descricao" 
+                            name="descricao" 
+                            placeholder="Descreva as características do produto..." 
+                            rows="5" 
+                            required
+                        ></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Cadastrar Produto</button>
+                </form>
+
+                <div id="successMessage" class="success-message" style="display: none;">
+                    <h3>✓ Produto cadastrado com sucesso!</h3>
+                    <p>Redirecionando para a página de produtos...</p>
+                </div>
+
+                <div id="errorMessage" class="error-message" style="display: none;">
+                    <h3>✗ Erro ao cadastrar</h3>
+                    <p id="errorText"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 TechStore. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="../theme.js"></script>
+    <script src="cadastro.js"></script>
+</body>
+</html>

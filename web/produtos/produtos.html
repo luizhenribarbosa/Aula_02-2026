@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos - TechStore</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="produtos.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>💻 TechStore</h1>
+            </div>
+            <nav class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../cadastro/cadastro.html">Cadastrar Produto</a>
+                <a href="./produtos.html">Produtos</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle">🌙</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="produtos-section">
+            <h2>Nossos Produtos</h2>
+            <div id="loadingMessage" class="loading-message">
+                <p>Carregando produtos...</p>
+            </div>
+            <div id="produtosContainer" class="produtos-container">
+                <!-- Os produtos serão inseridos aqui via JavaScript -->
+            </div>
+            <div id="emptyMessage" class="empty-message" style="display: none;">
+                <p>Nenhum produto cadastrado ainda. <a href="../cadastro/cadastro.html">Clique aqui para cadastrar um.</a></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 TechStore. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="../theme.js"></script>
+    <script src="produtos.js"></script>
+</body>
+</html>
