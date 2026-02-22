@@ -18,6 +18,8 @@ const db = mysql.createPool({
   queueLimit: 0
 })
 
+
+// 
 app.post('/api/produtos', async (req, res) => {
   try {
     const { nome, preco, descricao, categoria } = req.body
@@ -59,6 +61,11 @@ app.get('/api/produtos', async (req, res) => {
     })
   }
 })
+
+app.delete('/api/produtos/:id', (request, respose) => {
+  console.log('ID do produto a ser deletado:', request.params.id)
+})
+
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`)
