@@ -6,9 +6,9 @@ POST http://localhost:3000/api/produtos
 Content-Type: application/json
 
 {
-  "nome": "Aulas de fotografia",
-  "preco": 299.99,
-  "descricao": "Seja profissional em fotografia com nossas aulas online.",
+  "nome": "Prompt de musica para IA",
+  "preco": 500,
+  "descricao": "Prompt para criar musicas usando IA",
   "categoria": "Cursos"
 }
 

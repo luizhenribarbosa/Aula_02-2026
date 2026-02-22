@@ -50,7 +50,7 @@ app.post('/api/produtos', async (req, res) => {
 app.get('/api/produtos', async (req, res) => {
   try {
     const connection = await db.getConnection()
-    const [produtos] = await connection.execute('SELECT nome, preco, descricao, categoria FROM produtos_luizbarbosa')
+    const [produtos] = await connection.execute('SELECT id, nome, preco, descricao, categoria FROM produtos_luizbarbosa')
     connection.release()
 
     res.status(200).json(produtos)
@@ -62,8 +62,37 @@ app.get('/api/produtos', async (req, res) => {
   }
 })
 
-app.delete('/api/produtos/:id', (request, respose) => {
-  console.log('ID do produto a ser deletado:', request.params.id)
+app.delete('/api/produtos/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+
+    if (!id) {
+      return res.status(400).json({ 
+        erro: 'ID do produto é obrigatório'
+      })
+    }
+
+    const connection = await db.getConnection()
+    const query = 'DELETE FROM produtos_luizbarbosa WHERE id = ?'
+    
+    const [resultado] = await connection.execute(query, [id])
+    connection.release()
+
+    if (resultado.affectedRows === 0) {
+      return res.status(404).json({ 
+        erro: 'Produto não encontrado'
+      })
+    }
+
+    res.status(200).json({ 
+      mensagem: 'Produto deletado com sucesso'
+    })
+  } catch (erro) {
+    console.error('Erro ao deletar produto:', erro)
+    res.status(500).json({ 
+      erro: 'Erro ao deletar o produto do banco de dados'
+    })
+  }
 })
 
 

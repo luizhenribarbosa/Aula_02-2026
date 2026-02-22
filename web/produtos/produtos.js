@@ -62,7 +62,35 @@ function criarCartaoProduto(produto) {
         <span class="categoria-badge">${produto.categoria}</span>
         <div class="produto-preco">${precoFormatado}</div>
         <p class="produto-descricao">${produto.descricao}</p>
+        <button class="btn-deletar" data-id="${produto.id}">🗑️ Apagar</button>
     `;
 
+    // Adicionar evento ao botão de deletar
+    const btnDeletar = div.querySelector('.btn-deletar');
+    btnDeletar.addEventListener('click', () => deletarProduto(produto.id));
+
     return div;
+}
+
+async function deletarProduto(id) {
+    if (!confirm('Tem certeza que deseja apagar este produto?')) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/produtos/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (!response.ok) {
+            const erro = await response.json();
+            throw new Error(erro.erro || 'Erro ao deletar produto');
+        }
+
+        alert('Produto deletado com sucesso!');
+        carregarProdutos();
+    } catch (erro) {
+        console.error('Erro:', erro);
+        alert('Erro ao deletar o produto: ' + erro.message);
+    }
 }

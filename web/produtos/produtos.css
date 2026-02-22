@@ -93,6 +93,32 @@
     border-bottom: 1px solid var(--border-color);
 }
 
+.btn-deletar {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-deletar:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+}
+
+.btn-deletar:active {
+    transform: scale(0.98);
+}
+
 /* MENSAGENS */
 .loading-message,
 .empty-message {
