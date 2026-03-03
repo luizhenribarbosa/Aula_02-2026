@@ -62,8 +62,17 @@ function criarCartaoProduto(produto) {
         <span class="categoria-badge">${produto.categoria}</span>
         <div class="produto-preco">${precoFormatado}</div>
         <p class="produto-descricao">${produto.descricao}</p>
-        <button class="btn-deletar" data-id="${produto.id}">🗑️ Apagar</button>
+        <div class="produto-actions">
+            <button class="btn-editar" data-id="${produto.id}">Editar</button>
+            <button class="btn-deletar" data-id="${produto.id}">Apagar</button>
+        </div>
     `;
+
+    // Adicionar evento ao botão de editar
+    const btnEditar = div.querySelector('.btn-editar');
+    btnEditar.addEventListener('click', () => {
+        window.location.href = `../cadastro/cadastro.html?id=${produto.id}`;
+    });
 
     // Adicionar evento ao botão de deletar
     const btnDeletar = div.querySelector('.btn-deletar');

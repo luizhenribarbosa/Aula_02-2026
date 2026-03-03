@@ -5,6 +5,31 @@ const successMessage = document.getElementById('successMessage');
 const errorMessage = document.getElementById('errorMessage');
 const errorText = document.getElementById('errorText');
 
+const urlParams = new URLSearchParams(window.location.search);
+const editarId = urlParams.get('id');
+
+// Se for edição, carregar dados e ajustar título/botão
+document.addEventListener('DOMContentLoaded', async () => {
+    if (editarId) {
+        try {
+            const resp = await fetch(`${API_URL}/produtos/${editarId}`);
+            if (!resp.ok) throw new Error('Produto não encontrado');
+            const produto = await resp.json();
+
+            document.querySelector('.form-wrapper h2').textContent = 'Editar Produto';
+            formProduto.querySelector('button[type="submit"]').textContent = 'Salvar Alterações';
+
+            document.getElementById('nome').value = produto.nome || '';
+            document.getElementById('price').value = produto.preco || '';
+            document.getElementById('categoria').value = produto.categoria || '';
+            document.getElementById('descricao').value = produto.descricao || '';
+        } catch (err) {
+            console.error('Erro ao carregar produto para edição:', err);
+            mostrarErro('Não foi possível carregar o produto para edição.');
+        }
+    }
+});
+
 formProduto.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -28,9 +53,12 @@ formProduto.addEventListener('submit', async (e) => {
     }
 
     try {
-        // Enviar para o servidor
-        const response = await fetch(`${API_URL}/produtos`, {
-            method: 'POST',
+        // Se estiver editando, usar PUT, caso contrário POST
+        const method = editarId ? 'PUT' : 'POST';
+        const url = editarId ? `${API_URL}/produtos/${editarId}` : `${API_URL}/produtos`;
+
+        const response = await fetch(url, {
+            method,
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -38,8 +66,6 @@ formProduto.addEventListener('submit', async (e) => {
         });
 
         if (response.ok) {
-            const result = await response.json();
-            
             // Mostrar mensagem de sucesso
             errorMessage.style.display = 'none';
             formProduto.style.display = 'none';
@@ -51,7 +77,7 @@ formProduto.addEventListener('submit', async (e) => {
             }, 2000);
         } else {
             const error = await response.json();
-            mostrarErro(error.erro || 'Erro ao cadastrar o produto.');
+            mostrarErro(error.erro || 'Erro ao salvar o produto.');
         }
     } catch (erro) {
         console.error('Erro:', erro);

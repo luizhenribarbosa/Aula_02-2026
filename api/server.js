@@ -62,6 +62,29 @@ app.get('/api/produtos', async (req, res) => {
   }
 })
 
+app.get('/api/produtos/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+
+    if (!id) {
+      return res.status(400).json({ erro: 'ID do produto é obrigatório' })
+    }
+
+    const connection = await db.getConnection()
+    const [rows] = await connection.execute('SELECT id, nome, preco, descricao, categoria FROM produtos_luizbarbosa WHERE id = ?', [id])
+    connection.release()
+
+    if (rows.length === 0) {
+      return res.status(404).json({ erro: 'Produto não encontrado' })
+    }
+
+    res.status(200).json(rows[0])
+  } catch (erro) {
+    console.error('Erro ao buscar produto por id:', erro)
+    res.status(500).json({ erro: 'Erro ao buscar produto no banco de dados' })
+  }
+})
+
 app.delete('/api/produtos/:id', async (req, res) => {
   try {
     const { id } = req.params
@@ -92,6 +115,35 @@ app.delete('/api/produtos/:id', async (req, res) => {
     res.status(500).json({ 
       erro: 'Erro ao deletar o produto do banco de dados'
     })
+  }
+})
+
+app.put('/api/produtos/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    const { nome, preco, descricao, categoria } = req.body
+
+    if (!id) {
+      return res.status(400).json({ erro: 'ID do produto é obrigatório' })
+    }
+
+    if (!nome || !preco || !descricao || !categoria) {
+      return res.status(400).json({ erro: 'Todos os campos são obrigatórios' })
+    }
+
+    const connection = await db.getConnection()
+    const query = 'UPDATE produtos_luizbarbosa SET nome = ?, preco = ?, descricao = ?, categoria = ? WHERE id = ?'
+    const [resultado] = await connection.execute(query, [nome, preco, descricao, categoria, id])
+    connection.release()
+
+    if (resultado.affectedRows === 0) {
+      return res.status(404).json({ erro: 'Produto não encontrado' })
+    }
+
+    res.status(200).json({ mensagem: 'Produto atualizado com sucesso' })
+  } catch (erro) {
+    console.error('Erro ao atualizar produto:', erro)
+    res.status(500).json({ erro: 'Erro ao atualizar o produto no banco de dados' })
   }
 })
 
